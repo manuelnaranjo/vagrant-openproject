@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 DATE=`date +%d%m%Y-%H%M%S`
 

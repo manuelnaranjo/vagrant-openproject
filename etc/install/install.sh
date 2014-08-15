@@ -60,12 +60,13 @@ fi
 if ! command -v openproject; then
     apt-get install -y openproject*=3.0.1-1400061402.f476e5c.precise
 
-    # create dabase
-    createdb -O openproject openproject
+    # create database
+    createuser -U postgres -S -D -R openproject
+    createdb -U postgres -O openproject openproject
 
     # configure openproject
     openproject config:set SECRET_TOKEN=$(openproject run rake secret | tail -1)
-    openproject config:set DATABASE_URL=postgres://postgress@localhost/openproject
+    openproject config:set DATABASE_URL=postgres://openproject@localhost/openproject
 
     # run initialization
     openproject run rake db:migrate
@@ -86,6 +87,6 @@ install restore-database.sh
 /usr/sbin/update-plugins.sh
 
 if [ ! -f $PROJECT_DIR/.crontab.updated ] ; then
-    crontab -u openproject < ${PROJECT_DIR}/etc/install/crontab
+    crontab -u openproject ${PROJECT_DIR}/etc/install/crontab
     touch $PROJECT_DIR/.crontab.updated
 fi
