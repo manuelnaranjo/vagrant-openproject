@@ -66,12 +66,17 @@ if ! command -v openproject; then
     service openproject restart
 fi
 
-if [ -f $PROJECT_DIR/etc/install/Gemfile.plugins ]; then
-    # initialize plugins
-    sudo cp $PROJECT_DIR/etc/install/Gemfile.plugins /opt/openproject/
+function install() {
+    cp $PROJECT_DIR/etc/install/${1} /usr/sbin/
+    chmod +x /usr/sbin/${1}
+}
 
-    sudo openproject run bundle install --no-deployment
-    sudo openproject run rake db:migrate
-    sudo openproject run rake assets:precompile
-    sudo service openproject restart
+install update-plugins.sh
+install backup-database.sh
+install restore-database.sh
+
+/usr/sbin/update-plugins.sh
+
+if [ ! -f $PROJECT_DIR/.crontab.updated ] ; then
+    crontab -u openproject < ${PROJECT_DIR}/etc/install/crontab
 fi
