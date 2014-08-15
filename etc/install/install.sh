@@ -48,6 +48,14 @@ if ! command -v mcedit; then
     apt-get install -y mc
 fi
 
+# nginx
+if ! command -v nginx ; then
+    apt-get install -y nginx
+    rm /etc/nginx/sites-enabled/default
+    cp $PROJECT_DIR/etc/install/nginx.default.conf /etc/nginx/sites-enabled/default
+    service nginx restart
+fi
+
 # now install openproject
 if ! command -v openproject; then
     apt-get install -y openproject*=3.0.1-1400061402.f476e5c.precise
