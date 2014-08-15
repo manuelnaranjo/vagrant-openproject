@@ -87,4 +87,5 @@ install restore-database.sh
 
 if [ ! -f $PROJECT_DIR/.crontab.updated ] ; then
     crontab -u openproject < ${PROJECT_DIR}/etc/install/crontab
+    touch $PROJECT_DIR/.crontab.updated
 fi
