@@ -50,20 +50,20 @@ fi
 
 # now install openproject
 if ! command -v openproject; then
-    sudo apt-get install -y openproject*=3.0.1-1400061402.f476e5c.precise
+    apt-get install -y openproject*=3.0.1-1400061402.f476e5c.precise
 
     # create dabase
-    sudo -u postgress createdb openproject
+    createdb -O openproject openproject
 
     # configure openproject
-    sudo openproject config:set SECRET_TOKEN=$(sudo openproject run rake secret | tail -1)
-    sudo openproject config:set DATABASE_URL=postgres://postgress@localhost/openproject
+    openproject config:set SECRET_TOKEN=$(openproject run rake secret | tail -1)
+    openproject config:set DATABASE_URL=postgres://postgress@localhost/openproject
 
     # run initialization
-    sudo openproject run rake db:migrate
-    sudo openproject run rake db:seed
-    sudo openproject scale web=1 worker=1
-    sudo service openproject restart
+    openproject run rake db:migrate
+    openproject run rake db:seed
+    openproject scale web=1 worker=1
+    service openproject restart
 fi
 
 if [ -f $PROJECT_DIR/etc/install/Gemfile.plugins ]; then
