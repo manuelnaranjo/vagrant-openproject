@@ -26,7 +26,7 @@ Vagrant::Config.run do |config|
   #config.vm.box_url = "http://vmimages.torchbox.com/django-base-v2.1.box"  # Torchbox-internal URL to django-base.box
 
   # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
+  config.vm.boot_mode = :gui
 
   # Assign this VM to a host only network IP, allowing you to access it
   # via the IP.
@@ -34,7 +34,7 @@ Vagrant::Config.run do |config|
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
-  config.vm.forward_port 8000, 8211
+  config.vm.forward_port 8080, 8211
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the

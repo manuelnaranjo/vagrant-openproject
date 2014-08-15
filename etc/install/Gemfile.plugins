@@ -1,2 +1,3 @@
 gem "openproject-plugins", :git => "https://github.com/opf/openproject-plugins.git", :branch => "stable"
 gem "openproject-meeting", :git => "https://github.com/finnlabs/openproject-meeting.git", :branch => "stable"
+gem "openproject-translations", :git => "https://github.com/opf/openproject-translations.git", :branch => "stable"
