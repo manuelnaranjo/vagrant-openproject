@@ -1,4 +1,4 @@
-#!/bin/env/env bash
+#!/usr/bin/env bash
 
 service openproject stop
 

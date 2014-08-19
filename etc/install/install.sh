@@ -90,3 +90,10 @@ if [ ! -f $PROJECT_DIR/.crontab.updated ] ; then
     crontab -u openproject ${PROJECT_DIR}/etc/install/crontab
     touch $PROJECT_DIR/.crontab.updated
 fi
+
+if [ -d $PROJECT_DIR/dumps ]; then
+    LAST_DUMP=`find $PROJECT_DIR/dumps -type f | sort | tail -n1`
+    service openproject stop
+    /usr/sbin/restore-database.sh ${LAST_DUMP}
+    service openproject start
+fi
